@@ -42,10 +42,12 @@ function game() {
   const computerSelection = getComputerChoice();
 
   playRound(playerSelection, computerSelection);
-  console.log(playerScore, computerScore);
+  console.log(
+    "playerScore : " + playerScore,
+    "computerScore : " + computerScore
+  );
 }
 
-game();
 game();
 game();
 game();
