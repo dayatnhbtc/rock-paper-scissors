@@ -1,55 +1,41 @@
-function getComputerChoice() {
-  let randomRPS = Math.floor(Math.random() * 100) % 3;
-  if (randomRPS === 0) {
-    return "rock";
-  } else if (randomRPS === 1) {
-    return "paper";
-  } else {
-    return "scrissors";
-  }
-}
+const choices = ["rock", "paper", "scrissors"];
+const gameLength = 5;
 
 let playerScore = 0;
 let computerScore = 0;
 
-function playRound(playerSelection, computerSelection) {
-  if (playerSelection == computerSelection) {
-    console.log("It's a tie!");
-  } else if (playerSelection == "rock" && computerSelection == "paper") {
-    console.log("Computer win");
-    return computerScore++;
-  } else if (playerSelection == "paper" && computerSelection == "rock") {
-    console.log("Player win");
-    return playerScore++;
-  } else if (playerSelection == "rock" && computerSelection == "scrissors") {
-    console.log("Player win");
-    return playerScore++;
-  } else if (playerSelection == "scrissors" && computerSelection == "rock") {
-    console.log("Computer win");
-    return computerScore++;
-  } else if (playerSelection == "scrissors" && computerSelection == "paper") {
-    console.log("Player win");
-    return playerScore++;
-  } else if (playerSelection == "paper" && computerSelection == "scrissors") {
-    console.log("Computer win");
-    return computerScore++;
+function getComputerChoice() {
+  return choices[Math.floor(Math.random() * choices.length)];
+}
+
+function getPlayerChoice() {
+  const input = parseInt(prompt("1: rock, 2:paper, 3:scrissors"));
+  if (input > choices.length || input < 0) {
+    console.log("please enter the correct input");
+  } else {
+    return choices[input];
   }
 }
 
-function game() {
-  let userInput = prompt("rock, paper, scrissors?");
-  const playerSelection = userInput.toLowerCase();
-  const computerSelection = getComputerChoice();
-
-  playRound(playerSelection, computerSelection);
-  console.log(
-    "playerScore : " + playerScore,
-    "computerScore : " + computerScore
-  );
+function playRound(playerSelection, computerSelection) {
+  if (computerSelection === playerSelection) {
+    console.log("it's a tie!");
+  } else if (
+    (playerSelection === "rock" && computerSelection === "scrissors") ||
+    (playerSelection === "paper" && computerSelection === "rock") ||
+    (playerSelection === "scrissors" && computerSelection === "paper")
+  ) {
+    playerScore++;
+  } else {
+    computerScore++;
+  }
 }
 
-game();
-game();
-game();
-game();
-game();
+for (let i = 0; i < gameLength; i++) {
+  const playerSelection = getPlayerChoice();
+  const computerSelection = getComputerChoice();
+  playRound(playerSelection, computerSelection);
+  console.log(
+    `playerScore : ${playerScore} , computerScore : ${computerScore}`
+  );
+}
