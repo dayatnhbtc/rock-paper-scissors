@@ -27,6 +27,7 @@ function playRound(playerSelection, computerSelection) {
 // addEventListener
 let playerSelection = "";
 const button = document.querySelector(".content");
+const result = document.querySelector(".result");
 
 button.addEventListener("click", (e) => {
   if (gameLength < 5) {
@@ -36,7 +37,6 @@ button.addEventListener("click", (e) => {
     updateScore();
     gameLength++;
   } else {
-    const result = document.querySelector(".result");
     if (computerScore > playerScore) {
       result.innerHTML = "Computer is the Winner";
     } else if (computerScore < playerScore) {
@@ -67,4 +67,31 @@ const computerScoreClass = document.querySelector("#computer-score");
 function updateScore() {
   playerScoreClass.innerHTML = playerScore;
   computerScoreClass.innerHTML = computerScore;
+}
+
+function resetGame() {
+  playerScore = 0;
+  computerScore = 0;
+  gameLength = 0;
+  result.innerHTML = "";
+}
+
+const reset = document.querySelector(".reset");
+
+reset.addEventListener("click", (e) => {
+  resetGame();
+  updateScore();
+  removeLog();
+});
+
+function removeLog() {
+  let children1 = document.querySelectorAll(".log-player div");
+  let children2 = document.querySelectorAll(".log-computer div");
+  console.log(children1);
+  for (child of children1) {
+    playerLog.removeChild(child);
+  }
+  for (child of children2) {
+    computerLog.removeChild(child);
+  }
 }

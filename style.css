@@ -36,6 +36,11 @@ main {
   font-size: 2rem;
 }
 
+.reset {
+  height: 30px;
+  width: 84px;
+}
+
 .result {
   height: 48px;
 }
