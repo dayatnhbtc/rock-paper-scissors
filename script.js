@@ -1,16 +1,17 @@
 const choices = ["rock", "paper", "scissors"];
-let gameLength = 0;
-let playerScore = 0;
-let computerScore = 0;
-let playerSelection = "";
-let computerSelection = getComputerChoice();
-let button = document.querySelector(".content");
-let result = document.querySelector(".result");
+const button = document.querySelector(".content");
+const result = document.querySelector(".result");
+const gameMaxLength = 5;
 const playerLog = document.querySelector(".log-player");
 const computerLog = document.querySelector(".log-computer");
 const playerScoreClass = document.querySelector("#player-score");
 const computerScoreClass = document.querySelector("#computer-score");
 const reset = document.querySelector(".reset");
+let gameLength = 0;
+let playerScore = 0;
+let computerScore = 0;
+let playerSelection = "";
+let computerSelection = "";
 
 function getComputerChoice() {
   return choices[Math.floor(Math.random() * choices.length)];
@@ -70,17 +71,22 @@ reset.addEventListener("click", () => {
 button.addEventListener("click", (e) => {
   if (gameLength < 5) {
     playerSelection = e.target.className.toLowerCase();
+    computerSelection = getComputerChoice();
     playRound(playerSelection, computerSelection);
     updateScore();
     makeLog(playerSelection, computerSelection);
     gameLength++;
-  } else {
-    if (computerScore > playerScore) {
-      result.innerHTML = "Computer is the Winner";
-    } else if (computerScore < playerScore) {
+  }
+  if (gameLength === gameMaxLength) {
+    if (computerScore < playerScore) {
       result.innerHTML = "Player is the Winner";
+      result.style.color = "green";
+    } else if (computerScore > playerScore) {
+      result.innerHTML = "Computer is the Winner";
+      result.style.color = "red";
     } else {
       result.innerHTML = "It's a tie game";
+      result.style.color = "grey";
     }
   }
 });
